@@ -1,40 +1,37 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import Box from "@mui/material/Box";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import SearchIcon from "@mui/icons-material/Search";
 
-export default function HookForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+export default function SearcherForm(props) {
+  const [search, setSearch] = useState("");
+
+  const onSubmited = (e) => {
+    e.preventDefault();
+    props.handleSearch(search);
   };
+
+  const changeState = e => {
+    setSearch(e.target.value);
+  }
 
   return (
     <>
       <h1>Buscar Noticias</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Box
-          component="form"
-          sx={{
-            "& > :not(style)": { m: 1, width: "25ch" },
-          }}
-          noValidate
-          autoComplete="on"
-        >
+      <form onSubmit={onSubmited}>
           <TextField
             id="standard-basic"
             label="Buscar Noticia"
             variant="standard"
-            {...register("parametro", { required: "requerido" })}
+            onChange={changeState}
           />
-        </Box>
-        {errors.parametro && <h2>{errors.parametro.message}</h2>}
-        <input type="submit" />
+          <Stack direction="row" spacing={2}>
+            <Button type="submit" variant="contained" endIcon={<SearchIcon />}>
+              Search
+            </Button>
+          </Stack>
       </form>
     </>
   );
