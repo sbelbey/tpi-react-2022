@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import NewsCard from "./NewsCard";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import AddIcon from "@mui/icons-material/Add";
+import AddIcon from '@mui/icons-material/Add';
+import { grey } from '@mui/material/colors';
 
 export default function NewsDetatail(props) {
   const [loading, setLoading] = useState(false);
@@ -50,20 +49,21 @@ export default function NewsDetatail(props) {
       {news && news.length > 0 ? (
         <>
           <h2>
-            You are watching {page * pageSize} for {totalNews} News
+            We founded {" "}
+            {page * pageSize > totalNews ? totalNews : page * pageSize} of{" "}
+            {totalNews} {" "} {search}
           </h2>
-          {news.map((article) => {
-            return <NewsCard article={article}></NewsCard>;
-          })}
-          <Stack direction="row" spacing={2}>
-            <Button
-              variant="contained"
-              endIcon={<AddIcon />}
-              onClick={loadMore}
-            >
-              Load more
-            </Button>
-          </Stack>
+          <section className="news-container">
+            {news.map((article) => {
+              return <NewsCard article={article}></NewsCard>;
+            })}
+          </section>
+
+          {news.length === totalNews ? null : (
+            <button className="load-more-btn" onClick={loadMore}>
+              Load More{" "} <AddIcon sx={{ color: grey[50] }}></AddIcon>
+            </button>
+          )}
         </>
       ) : search ? (
         loading ? (

@@ -1,33 +1,20 @@
-import * as React from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { Button, CardActionArea, CardActions } from "@mui/material";
+import React from "react";
 
 export default function NewsCard({ article }) {
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="140"
-          image={article.urlToImage}
+    <a href={article.url} target="_blank">
+      <article className="news-card">
+        <img
+          className="news-img"
+          src={article.urlToImage}
+          alt={article.title}
         />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {article.title}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {article.description}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Leer Más ...
-        </Button>
-      </CardActions>
-    </Card>
+        <section className="news-description">
+          <h6 className="news-title">{article.title}</h6>
+          <p className="news-published">Published: {article.publishedAt}</p>
+          <p className="news-author">{article.author}</p>
+        </section>
+      </article>
+    </a>
   );
 }

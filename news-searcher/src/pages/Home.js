@@ -5,12 +5,11 @@ import SearcherForm from "../components/forms/SearcherForm";
 export default function Home() {
   const [toSearch, setToSearch] = useState(null);
 
-  const handleSearch = (search) =>{
+  const handleSearch = (search) => {
     setToSearch(search);
-  }
+  };
 
-  useEffect( () => {
-  }, [toSearch])
+  useEffect(() => {}, [toSearch]);
 
   return (
     <>
